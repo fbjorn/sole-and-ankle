@@ -31,6 +31,9 @@ const ShoeCard = ({
       ? 'new-release'
       : 'default'
 
+  const onSale = variant === 'on-sale'
+  const PriceComponent = onSale? StrikePrice: Price
+
   return (
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
@@ -42,10 +45,11 @@ const ShoeCard = ({
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <PriceComponent>{formatPrice(price)}</PriceComponent>
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          {salePrice && <SalePrice>{formatPrice(salePrice)}</SalePrice>}
         </Row>
       </Wrapper>
     </Link>
@@ -104,11 +108,16 @@ const Price = styled.span`
   margin-left: auto;
 `;
 
+const StrikePrice = styled(Price)`
+  text-decoration-line: line-through;
+  color: ${COLORS.gray[700]};
+`
+
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
 `;
 
-const SalePrice = styled.span`
+const SalePrice = styled(Price)`
   font-weight: ${WEIGHTS.medium};
   color: ${COLORS.primary};
 `;
