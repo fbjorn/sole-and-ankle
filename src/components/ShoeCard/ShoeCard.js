@@ -36,6 +36,8 @@ const ShoeCard = ({
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
+          {variant === 'on-sale' && <PrimaryTag>Sale!</PrimaryTag>}
+          {variant === 'new-release' && <SecondaryTag>Just released!</SecondaryTag>}
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
@@ -55,16 +57,42 @@ const Link = styled.a`
   color: inherit;
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+  flex: 1;
+  width: 340px;
+`;
+
+const Tag = styled.div`
+  position: absolute;
+  padding: 7px 10px;
+  top: 12px;
+  right: -4px;
+  border-radius: 2px;
+  font-weight: ${WEIGHTS.bold};
+  color: ${COLORS.white};
+`
+
+const PrimaryTag = styled(Tag)`
+  background-color: ${COLORS.primary};
+`
+
+const SecondaryTag = styled(Tag)`
+  background-color: ${COLORS.secondary};
+`
+
 
 const ImageWrapper = styled.div`
   position: relative;
 `;
 
-const Image = styled.img``;
+const Image = styled.img`
+  width: 100%;
+  border-radius: 16px 16px 4px 4px;
+`;
 
 const Row = styled.div`
   font-size: 1rem;
+  display: flex;
 `;
 
 const Name = styled.h3`
@@ -72,7 +100,9 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  margin-left: auto;
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
